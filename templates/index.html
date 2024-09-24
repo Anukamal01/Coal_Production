@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coal Production Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("{{ url_for('static', filename='images/coal.jpg') }}");
+            background-size: cover; /* Cover the whole screen */
+            background-position: center; /* Center the image */
+            height: 100vh; /* Full height */
+            background-repeat: no-repeat;
+            color: #fff;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 50px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        form {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+            border-radius: 10px;
+            padding: 20px;
+            display: inline-block;
+            margin: 20px auto;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            max-width: 600px; /* Limit the width of the form */
+            text-align: left; /* Align text to the left */
+        }
+
+        .form-group {
+            display: flex; /* Use flexbox to align label and input */
+            justify-content: space-between; /* Space between label and input */
+            align-items: center; /* Center align items vertically */
+            margin-bottom: 15px; /* Space between form groups */
+        }
+
+        label {
+            font-size: 1.2em;
+            flex-basis: 40%; /* Give label a fixed width */
+            margin-right: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 60%; /* Make input take up the remaining space */
+            max-width: 250px; /* Optional: Limit the max width */
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s;
+            margin-top: 10px; /* Space above the button */
+            display: block; /* Center the button */
+            margin-left: auto; /* Align to the right */
+            margin-right: auto; /* Align to the right */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049; /* Darker green */
+        }
+
+        h2 {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Predict Coal/Lignite Production</h1>
+    <form action="/predict" method="post">
+        <div class="form-group">
+            <label for="State/UT Name">State/UT Name:</label>
+            <input type="text" id="State/UT Name" name="State/UT Name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Mine Name">Mine Name:</label>
+            <input type="text" id="Mine Name" name="Mine Name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Coal Mine Owner Name">Coal Mine Owner Name:</label>
+            <input type="text" id="Coal Mine Owner Name" name="Coal Mine Owner Name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Coal/Lignite">Coal/Lignite (1 for Coal, 0 for Lignite):</label>
+            <input type="number" id="Coal/Lignite" name="Coal/Lignite" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Govt Owned/Private">Government Owned (1 for Yes, 0 for No):</label>
+            <input type="number" id="Govt Owned/Private" name="Govt Owned/Private" required>
+        </div>
+
+        <div class="form-group">
+            <label for="TypeofMine ">Type of Mine (1 for UG, 0 for OP):</label>
+            <input type="number" id="TypeofMine " name="TypeofMine " required>
+        </div>
+
+        <div class="form-group">
+            <label for="Latitude ">Latitude:</label>
+            <input type="number" step="any" id="Latitude " name="Latitude " required>
+        </div>
+
+        <div class="form-group">
+            <label for="Longitude ">Longitude:</label>
+            <input type="number" step="any" id="Longitude " name="Longitude " required>
+        </div>
+
+        <input type="submit" value="Predict">
+    </form>
+
+    {% if prediction is not none %}
+        <h2>Predicted Coal Production: {{ prediction }}</h2>
+    {% endif %}
+
+    {% if error %}
+        <h2 class="error">Error: {{ error }}</h2>
+    {% endif %}
+</body>
+</html>
