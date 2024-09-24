@@ -5,7 +5,7 @@ import pandas as pd
 app = Flask(__name__)
 
 # Load the trained model
-model = joblib.load('C:/Users/anu99/Downloads/final.pkl')
+model = joblib.load('C:/Users/anu99/PycharmProjects/Final_AIML_Project/final.pkl')
 
 
 @app.route('/')
